@@ -1,18 +1,24 @@
+import "dotenv/config";
+import express from "express";
+import mongoose from "mongoose";
+import userRoutes from "./routes/user";
+import bodyParser from "body-parser";
+import cors from "cors";
 
-import  express  from "express"
-import mongoose from 'mongoose'
-const app= express()
-// add user routes
-const userRoutes= require("./routes/user")
-// add body parser
-const bodyParser= require("body-parser")
-// add cors
-const cors= require("cors")
-// add dotenv
-require("dotenv").config()
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
+app.use("/user", userRoutes);
 
-
-app.listen(5000, () => {
-    console.log("server is running on port 5000");
+mongoose
+  .connect(process.env.DB_URL || "")
+  .then(() => {
+    console.log("connected to database");
+    app.listen(5000, () => {
+      console.log("server is running on port 5000");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
