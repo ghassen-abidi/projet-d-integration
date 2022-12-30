@@ -1,5 +1,7 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema(
+import mongoose from "mongoose"
+
+
+const Schema = new mongoose.Schema(
     {
         name: {
             type: String ,
@@ -12,6 +14,10 @@ const Schema = mongoose.Schema(
         password: {
             type: String ,
             required: true
+        },
+        approuve:{
+            type:Boolean,
+            default:false
         },
         date:Date,
         role: {

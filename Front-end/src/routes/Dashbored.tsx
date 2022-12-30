@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
   },
 }));
-const Event = () => {
+const Dashbored = () => {
     const { classes } = useStyles();
     return ( 
         <div style={{display:'flex',}}>
@@ -74,4 +74,4 @@ const Event = () => {
      );
 }
  
-export default Event;
+export default Dashbored;

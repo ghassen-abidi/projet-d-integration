@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { Profiler, useState } from 'react'
 import { Navbar } from './components/Navbar'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './routes/Login'
 import Signup from './routes/Signup'
 import Home from './routes/Home'
-import Event from './routes/Event'
+import Dashbored from './routes/Dashbored'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -28,7 +28,7 @@ function App() {
           <Route path="/home"  element={<Home/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup/>}  />
-          <Route path="/event"  element={<Event />}/>
+          <Route path="/Dashbored"  element={<Dashbored />}/>
           <Route path="/event/old"  />
           <Route path="/event/current"  />
 
