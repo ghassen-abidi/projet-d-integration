@@ -1,25 +1,32 @@
-export const create=(data:any )=>{
-    return "place"
+import event from '../../models/event'
+export const create= async(data:any )=>{
+  const e= await event.create(data) 
+  return e
   } 
 
 export const getall=()=>{
-    return "oki"
+    return event.find()
   }
 export const unchecked=()=>{
-    return "unchecked"
+  return event.find({approuve:false})
+
+   
   }
-export const approuve=()=>{
-    return "approuve"
+export const approuve=(id:string)=>{
+  return event.findByIdAndUpdate(id, {approuve:true}, {
+    new: true,}
+  )
+
   }
-export const reject=()=>{
-    return "reject"
+export const reject=(id:string)=>{
+    return event.findByIdAndDelete(id)
   }
   //getAllEvent
 export const getAllEvent=()=>{
-    return "getAllEvent"
+    return event.find({approuve:true})
   }
 
   //get event by id
 export const getEventById=(id:any)=>{
-    return "getEventById"
+    return event.findById(id)
   }

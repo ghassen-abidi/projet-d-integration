@@ -1,37 +1,39 @@
 import { Handler } from "express";
 import * as service from "./event.service";
-export const create: Handler = (req, res) => {
+export const create: Handler =async (req, res) => {
   const body = req.body;
-  const data = service.create(body);
+  const data = await service.create(body);
   return res.send(data);
   };
-export const getall: Handler = (req, res) => {
-    const data = service.getall();
+export const getall: Handler = async (req, res) => {
+    const data = await service.getall();
     return res.send(data);
   }
   //unchecked
-  export const unchecked :Handler =(req,res)=>{
-    const data = service.unchecked();
+  export const unchecked :Handler =async(req,res)=>{
+    const data = await service.unchecked();
     return res.send(data);
   }
 //approuve 
-export const approuve :Handler =(req,res)=>{
-    const data = service.approuve();
+export const approuve :Handler = async (req,res)=>{
+    const id= req.params.id;
+    const data = await service.approuve(id);
     return res.send(data);
     }
 //reject    
-export const reject :Handler =(req,res)=>{
-    const data = service.reject();
+export const reject :Handler = async (req,res)=>{
+    const id= req.params.id;
+    const data = await service.reject(id);
     return res.send(data);
     }
-export const getAllEvent: Handler = (req, res) => {
-    const data = service.getall();
+export const getAllEvent: Handler = async(req, res) => {
+    const data = await service.getall();
     return res.send(data);
   }
 //get event by id
-export const getEventById: Handler = (req, res) => {
+export const getEventById: Handler =async (req, res) => {
     const id = req.params.id;
-    const data = service.getEventById(id);
+    const data =await service.getEventById(id);
     return res.send(data);
   }
 

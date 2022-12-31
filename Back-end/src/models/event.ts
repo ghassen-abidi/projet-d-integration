@@ -12,6 +12,11 @@ const Schema = new mongoose.Schema(
         date: {
             type: String ,
             required: true
+        },
+        approuve:{
+            type: Boolean,
+            default:false
         }
     }
 )
+export default mongoose.model("Event", Schema);
