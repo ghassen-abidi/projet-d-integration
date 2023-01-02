@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "react-query";
 import { getClient } from "../rq";
+
 export const useUsersgetAll = () => {
   return useQuery("users", () =>
     getClient()
@@ -7,6 +8,7 @@ export const useUsersgetAll = () => {
       .then((res) => res.data)
   );
 };
+
 export const useEventUnchcked = () => {
   return useQuery("users", () =>
     getClient()
@@ -14,6 +16,7 @@ export const useEventUnchcked = () => {
       .then((res) => res.data)
   );
 };
+
 export const useGetEventById = (id) => {
   return useQuery("users", () =>
     getClient()
