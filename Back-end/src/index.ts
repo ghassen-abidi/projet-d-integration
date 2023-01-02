@@ -5,6 +5,7 @@ import routes from "./routes";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
+import { getFile } from "./storage";
 
 const port = Number(process.env.PORT || 4000);
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 app.use(routes);
+app.use(getFile());
 
 mongoose
   .connect(process.env.DB_URL || "")
