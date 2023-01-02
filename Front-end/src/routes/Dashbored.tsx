@@ -3,6 +3,7 @@ import { DropzoneButton } from "../components/DropzoneButton";
 import { createStyles, Select, TextInput } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import AddEvent from "../components/AddEvent";
+import { useUsersgetAll } from "../api/users";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ const useStyles = createStyles((theme) => ({
 }));
 const Dashbored = () => {
   const { classes } = useStyles();
+
   return (
     <div style={{ display: "flex" }}>
       <SideBar />

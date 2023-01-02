@@ -8,6 +8,7 @@ export const useUsersgetAll = () => {
       .then((res) => res.data)
   );
 };
+
 export const useUsersgetMyData = () => {
   return useQuery("user", () =>
     getClient()
