@@ -38,12 +38,12 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Protected role="admin">
-            <Route path="/Dashbored" element={<Dashbored />} />
-          </Protected>
-          <Protected>
-            <Route path="/event/old" />
-          </Protected>
+          {/* <Protected role="admin"> */}
+          <Route path="/Dashbored" element={<Dashbored />} />
+          {/* </Protected> */}
+          {/* <Protected> */}
+          <Route path="/event/old" />
+          {/* </Protected> */}
           <Route path="/event/current" />
         </Routes>
       </Router>

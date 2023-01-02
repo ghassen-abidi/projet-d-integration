@@ -11,6 +11,14 @@ export const useLogin = () => {
   });
 };
 
+export const useApproveUser = () => {
+  return useMutation((id) => {
+    return getClient()
+      .put("/user/approve/" + id)
+      .then((res) => res.data);
+  });
+};
+
 export const useUsersgetAll = () => {
   return useQuery("users", () =>
     getClient()
