@@ -1,9 +1,8 @@
 import { Handler } from "express";
 import * as service from "./user.service";
 
-export const login: Handler =async  (req, res) => {
+export const login: Handler = async (req, res) => {
   try {
-
     const { email, password } = req.body;
     const token = await service.login(email, password);
     return res.send({ token });
@@ -16,22 +15,22 @@ export const register: Handler = async (req, res) => {
   const data = await service.register(body);
   return res.send(data);
 };
-export const approuve: Handler =async (req, res) => {
-  const id= req.params.id;
+export const approuve: Handler = async (req, res) => {
+  const id = req.params.id;
   const data = await service.approuve(id);
   return res.send(data);
 };
 export const reject: Handler = async (req, res) => {
-  const id= req.params.id;
+  const id = req.params.id;
   const data = await service.reject(id);
   return res.send(data);
 };
 export const getall: Handler = async (req, res) => {
   const data = await service.getall();
   return res.send(data);
-}
-export const getMyData: Handler = async(req, res) => { 
-  const id= req.params.id;
-  const data = await service.getMyData('63b0181bb9e1689f2826689b');
+};
+export const getMyData: Handler = async (req, res) => {
+  const id = req.params.id;
+  const data = await service.getMyData("63b0181bb9e1689f2826689b");
   return res.send(data);
-}
+};

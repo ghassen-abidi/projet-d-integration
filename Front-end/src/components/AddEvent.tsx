@@ -2,8 +2,6 @@ import { SideBar } from "../components/SideBar";
 import { DropzoneButton } from "../components/DropzoneButton";
 import { createStyles, Select, TextInput } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import AddEvent from "../components/AddEvent";
-
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
@@ -23,37 +21,35 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
   },
 }));
-const Dashbored = () => {
+const AddEvent = () => {
   const { classes } = useStyles();
   return (
-    <div style={{ display: "flex" }}>
-      <SideBar />
-      <div
-        style={{
-          flex: 2,
-          padding: "50px",
-        }}
-      >
-        <AddEvent />
-      </div>
-      <div
-        style={{
-          flex: 2,
-          maxHeight: "100vh",
-          overflowY: "scroll",
-          padding: "25px",
-          display: "grid",
-          placeItems: "center",
-          overflowX: "hidden",
-        }}
-      >
-        <img
-          style={{ height: "400px", width: "400px" }}
-          src="/images/photoLogin.svg"
+    <div>
+      <h1>Add Event</h1>
+      <div>
+        <TextInput
+          label="title"
+          placeholder="event title"
+          classNames={classes}
+        />
+        <TextInput
+          label="desription"
+          placeholder="event description"
+          classNames={classes}
+        />
+
+        <DatePicker
+          style={{ marginTop: 20 }}
+          label="event date"
+          placeholder=""
+          classNames={classes}
+          clearable={false}
         />
       </div>
+
+      <DropzoneButton />
     </div>
   );
 };
 
-export default Dashbored;
+export default AddEvent;

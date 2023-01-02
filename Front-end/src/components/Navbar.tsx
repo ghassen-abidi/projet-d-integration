@@ -77,8 +77,6 @@ export function Navbar({ links }: NavbarProps) {
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
     ));
 
-   
-
     if (menuItems) {
       return (
         <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
@@ -111,8 +109,7 @@ export function Navbar({ links }: NavbarProps) {
     );
   });
 
-
-  if (pathname === "/event") {
+  if (pathname === "/dashbored") {
     console.log(pathname);
     return null;
   }
