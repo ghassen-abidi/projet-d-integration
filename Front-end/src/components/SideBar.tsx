@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createStyles, Navbar, Group, Code } from "@mantine/core";
+import { createStyles, Navbar, Group, Code, Button } from "@mantine/core";
 import {
   IconBellRinging,
   IconFingerprint,
@@ -13,9 +13,12 @@ import {
 } from "@tabler/icons";
 import { MantineLogo } from "@mantine/ds";
 import { UserInfo } from "../components/UserInfo";
+import { useIsAdmin, useLogout, useUsersgetMyData } from "../api/users";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
+
   return {
     navbar: {
       backgroundColor: theme.fn.variant({
@@ -87,15 +90,45 @@ export function SideBar() {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("Billing");
 
+  const { isLoading, data: user } = useUsersgetMyData();
+  const logout = useLogout();
+  const is = useIsAdmin();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <Navbar width={{ sm: 300 }} p="md" className={classes.navbar}>
       <Navbar.Section className={classes.header}>
         <UserInfo
           avatar="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-          name="Jane Fingerlicker"
-          email="jfingerlicker@me.io"
-          job="Art director"
+          name={user.name}
+          email={user.email}
+          job=""
+          role={user.role}
         />
+      </Navbar.Section>
+
+      <Link to="/home" className={classes.link}>
+        Home
+      </Link>
+
+      <Link to="/dashboard" className={classes.link}>
+        Dashboard
+      </Link>
+
+      {is && (
+        <>
+          <Link to="/dashboard/users" className={classes.link}>
+            Approve Users Requests
+          </Link>
+          <Link to="/dashboard/events" className={classes.link}>
+            Approve Events Requests
+          </Link>
+        </>
+      )}
+      {/* <Navbar.Section className={classes.header}>
         <a
           href="#"
           className={classes.link}
@@ -104,16 +137,22 @@ export function SideBar() {
           <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
           <span>Change account</span>
         </a>
-      </Navbar.Section>
+      </Navbar.Section> */}
       <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
+        <Button
           className={classes.link}
-          onClick={(event) => event.preventDefault()}
+          sx={{
+            backgroundColor: "red",
+            ":hover": {
+              backgroundColor: "red",
+            },
+          }}
+          fullWidth
+          onClick={logout}
         >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </Button>
       </Navbar.Section>
     </Navbar>
   );

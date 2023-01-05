@@ -12,15 +12,18 @@ export const create: Handler = async (req: any, res) => {
   const data = await service.create(body, file.filename);
   return res.send(data);
 };
+
 export const getall: Handler = async (req, res) => {
   const data = await service.getall();
   return res.send(data);
 };
+
 //unchecked
 export const unchecked: Handler = async (req, res) => {
   const data = await service.unchecked();
   return res.send(data);
 };
+
 //approuve
 export const approuve: Handler = async (req, res) => {
   const id = req.params.id;
@@ -33,10 +36,12 @@ export const reject: Handler = async (req, res) => {
   const data = await service.reject(id);
   return res.send(data);
 };
+
 export const getAllEvent: Handler = async (req, res) => {
-  const data = await service.getall();
+  const data = await service.getAllEvent();
   return res.send(data);
 };
+
 //get event by id
 export const getEventById: Handler = async (req, res) => {
   const id = req.params.id;

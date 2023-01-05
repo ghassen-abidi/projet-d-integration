@@ -7,7 +7,7 @@ export const login: Handler = async (req, res) => {
     const token = await service.login(email, password);
     return res.send({ token });
   } catch (e: any) {
-    return res.status(400).send(e.message);
+    return res.status(400).send({ message: e.message });
   }
 };
 export const register: Handler = async (req, res) => {
@@ -29,8 +29,7 @@ export const getall: Handler = async (req, res) => {
   const data = await service.getall();
   return res.send(data);
 };
-export const getMyData: Handler = async (req, res) => {
-  const id = req.params.id;
-  const data = await service.getMyData("63b0181bb9e1689f2826689b");
+export const getMyData: Handler = async (req: any, res) => {
+  const data = await service.getMyData(req.user.id);
   return res.send(data);
 };

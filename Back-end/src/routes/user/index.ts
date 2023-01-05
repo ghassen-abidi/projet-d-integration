@@ -8,7 +8,7 @@ const route = Router();
 route.post("/login", validate(schema.login), controller.login);
 route.post("/register", validate(schema.register), controller.register);
 route.put(
-  "/approuve/:id",
+  "/approve/:id",
   [authentify, authorize("admin")],
   controller.approuve
 );

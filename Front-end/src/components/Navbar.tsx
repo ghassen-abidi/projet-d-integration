@@ -11,6 +11,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { IconChevronDown } from "@tabler/icons";
 import { Link, useLocation } from "react-router-dom";
+import { useIsAuthenticated, useLogout } from "../api/users";
 
 const HEADER_HEIGHT = 60;
 
@@ -72,6 +73,10 @@ export function Navbar({ links }: NavbarProps) {
   const { pathname } = useLocation();
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
+
+  const is = useIsAuthenticated();
+
+  const logout = useLogout();
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
@@ -81,8 +86,8 @@ export function Navbar({ links }: NavbarProps) {
       return (
         <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
           <Menu.Target>
-            <a
-              href={link.link}
+            <Link
+              to={link.link}
               className={classes.link}
               onClick={(event) => event.preventDefault()}
             >
@@ -90,7 +95,7 @@ export function Navbar({ links }: NavbarProps) {
                 <span className={classes.linkLabel}>{link.label}</span>
                 <IconChevronDown size={12} stroke={1.5} />
               </Center>
-            </a>
+            </Link>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -98,21 +103,21 @@ export function Navbar({ links }: NavbarProps) {
     }
 
     return (
-      <a
+      <Link
         key={link.label}
-        href={link.link}
+        to={link.link}
         className={classes.link}
         onClick={(event) => event.preventDefault()}
       >
         {link.label}
-      </a>
+      </Link>
     );
   });
 
-  if (pathname === "/dashbored") {
-    console.log(pathname);
+  if (pathname.startsWith("/dashboard")) {
     return null;
   }
+
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }}>
       <Container className={classes.inner} fluid>
@@ -135,14 +140,27 @@ export function Navbar({ links }: NavbarProps) {
         </Group>
         <pre>
           <Group spacing={12} className={classes.links}>
-            <p>
-              <Link to="/Signup">signup</Link>{" "}
-            </p>
-            <Link to="/Login">
-              <Button radius="xl" sx={{ height: 30 }}>
-                Log in
-              </Button>
-            </Link>
+            {is ? (
+              <>
+                <Link to="/dashboard">
+                  <Button>Dashboard</Button>
+                </Link>
+                <Button sx={{ backgroundColor: "red" }} onClick={logout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <p>
+                  <Link to="/Signup">signup</Link>{" "}
+                </p>
+                <Link to="/Login">
+                  <Button radius="xl" sx={{ height: 30 }}>
+                    Log in
+                  </Button>
+                </Link>
+              </>
+            )}
           </Group>
         </pre>
       </Container>

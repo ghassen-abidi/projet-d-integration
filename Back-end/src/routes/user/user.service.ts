@@ -7,7 +7,7 @@ export const login = async (email: string, password: string) => {
   const isMatch = await bcrypt.compare(password, u.password);
   if (!isMatch) throw new Error("password is not correct");
 
-  // if (!u.approuve) throw new Error("your account is not approved");
+  if (!u.approuve) throw new Error("your account is not approved");
 
   const data = {
     id: u._id,
@@ -39,7 +39,9 @@ export const reject = (id: string) => {
   return "oki";
 };
 export const getall = () => {
-  return user.find();
+  return user.find({
+    approuve: false,
+  });
 };
 export const getMyData = (id: string) => {
   return user.findById(id);

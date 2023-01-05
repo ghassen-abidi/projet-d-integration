@@ -1,22 +1,77 @@
 import { useMutation, useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { getClient } from "../rq";
 
 // const { mutate, isLoading, data } = useLogin()
 
-export const useLogin = () => {
-  return useMutation((data) => {
-    return getClient()
-      .post("/user/login", data)
-      .then((res) => res.data);
-  });
+export const useRegister = (onSuccess) => {
+  return useMutation(
+    (data) => {
+      return getClient()
+        .post("/user/register", data)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess,
+    }
+  );
 };
 
-export const useApproveUser = () => {
-  return useMutation((id) => {
-    return getClient()
-      .put("/user/approve/" + id)
-      .then((res) => res.data);
-  });
+export const useLogout = () => {
+  const redirect = useNavigate();
+  return () => {
+    localStorage.removeItem("token");
+    redirect("/login");
+  };
+};
+
+export const useIsAuthenticated = () => {
+  const { data, isLoading } = useUsersgetMyData();
+  return !isLoading && !!data;
+};
+
+export const useIsAdmin = () => {
+  const { data, isLoading } = useUsersgetMyData();
+  return !isLoading && !!data && data.role === "admin";
+};
+
+export const useLogin = (onSuccess) => {
+  return useMutation(
+    (data) => {
+      return getClient()
+        .post("/user/login", data)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess,
+    }
+  );
+};
+
+export const useApproveUser = (onSuccess) => {
+  return useMutation(
+    (id: string) => {
+      return getClient()
+        .put("/user/approve/" + id)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess,
+    }
+  );
+};
+
+export const useRejectUser = (onSuccess) => {
+  return useMutation(
+    (id: string) => {
+      return getClient()
+        .delete("/user/reject/" + id)
+        .then((res) => res.data);
+    },
+    {
+      onSuccess,
+    }
+  );
 };
 
 export const useUsersgetAll = () => {
@@ -28,9 +83,14 @@ export const useUsersgetAll = () => {
 };
 
 export const useUsersgetMyData = () => {
-  return useQuery("user", () =>
-    getClient()
-      .get("/user/me")
-      .then((res) => res.data)
+  return useQuery(
+    "user",
+    () =>
+      getClient()
+        .get("/user/me")
+        .then((res) => res.data),
+    {
+      retry: false,
+    }
   );
 };

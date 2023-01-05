@@ -9,12 +9,18 @@ export const RQProvider = ({ children }) => {
   );
 };
 
+const baseURL = "http://localhost:4000";
+
 export function getClient() {
   return axios.create({
-    baseURL: "http://localhost:4000",
+    baseURL,
     headers: {
       "Content-Type": "application/json",
       authorization: "Bearer " + localStorage.getItem("token"),
     },
   });
+}
+
+export function getImage(path) {
+  return baseURL + "/storage/" + path;
 }

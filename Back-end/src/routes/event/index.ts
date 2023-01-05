@@ -8,7 +8,7 @@ const route = Router();
 route.post("/create", [upload(), validate(schema.create)], controller.create);
 route.get("/all", controller.getall);
 route.get("/unchecked", controller.unchecked);
-route.put("/approuve/:id", controller.approuve);
+route.put("/approve/:id", controller.approuve);
 route.delete("/reject/:id", controller.reject);
 route.get("/getAllEvent", controller.getAllEvent);
 route.get("/:id", controller.getEventById);

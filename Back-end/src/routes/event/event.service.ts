@@ -10,9 +10,11 @@ export const create = async (data: any, image: string) => {
 export const getall = () => {
   return event.find();
 };
+
 export const unchecked = () => {
   return event.find({ approuve: false });
 };
+
 export const approuve = (id: string) => {
   return event.findByIdAndUpdate(
     id,
@@ -22,6 +24,7 @@ export const approuve = (id: string) => {
     }
   );
 };
+
 export const reject = (id: string) => {
   return event.findByIdAndDelete(id);
 };

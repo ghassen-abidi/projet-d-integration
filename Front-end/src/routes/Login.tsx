@@ -9,7 +9,7 @@ import {
   Text,
   Anchor,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconFloatNone } from "@tabler/icons";
 import { useLogin } from "../api/users";
 
@@ -52,14 +52,13 @@ const useStyles = createStyles((theme) => ({
 
 export default function Login() {
   const { classes } = useStyles();
-
-  // assign name for each input
-  // add <form>
-  // add onSubmit
-  // button -> type="submit"
+  const redirect = useNavigate();
 
   // create onSubmit
-  const { mutate } = useLogin();
+  const { mutate, error } = useLogin(({ token }) => {
+    localStorage.setItem("token", token);
+    redirect("/dashboard");
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -93,7 +92,14 @@ export default function Login() {
           size="md"
           name="password"
         />
-        <Checkbox label="Keep me logged in" mt="xl" size="md" />
+        <div
+          style={{
+            color: "red",
+          }}
+        >
+          {(error as any)?.response?.data?.message}
+        </div>
+
         <Button fullWidth mt="xl" size="md" type="submit">
           Login
         </Button>
